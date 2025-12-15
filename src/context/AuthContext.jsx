@@ -1,23 +1,17 @@
-import React, { createContext, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  const login = (email, password) => {
-    // TODO: Replace with real authentication API call
-    if (email && password) {
-      setUser({ email });
-      navigate("/dashboard");
-    }
+  const login = (email) => {
+    // Replace with real API later
+    setUser({ email });
   };
 
   const logout = () => {
     setUser(null);
-    navigate("/");
   };
 
   return (

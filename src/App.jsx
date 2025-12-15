@@ -1,23 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from "./context/AuthContext";
+
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import AuthShell from "./context/AuthShell";
 
 export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          {/* Public */}
           <Route path="/" element={<Login />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+
+          {/* Admin */}
+          <Route path="/*" element={<AuthShell />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
