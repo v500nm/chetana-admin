@@ -1,27 +1,32 @@
-import React, { createContext, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
+
+// STATIC ADMIN CREDENTIALS
+const ADMIN_EMAIL = "admin@chetanacollege.edu";
+const ADMIN_PASSWORD = "admin123";
 
 export function AuthProvider({ children }) {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
 
   const login = (email, password) => {
-    // TODO: Replace with real authentication API call
-    if (email && password) {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       setUser({ email });
-      navigate("/dashboard");
+      setError("");
+      return true; // success
+    } else {
+      setError("Invalid email or password");
+      return false; // failure
     }
   };
 
   const logout = () => {
     setUser(null);
-    navigate("/");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, error }}>
       {children}
     </AuthContext.Provider>
   );

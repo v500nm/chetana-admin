@@ -1,20 +1,30 @@
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: "class",
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: "#003f8a",
-        secondary: "#002b5c",
-        accent: "#0055cc",
+        primary: "#2563eb",
+        "primary-hover": "#1d4ed8",
+        "primary-light": "#eff6ff",
+        "background-light": "#f8fafc",
+        "background-dark": "#0f172a",
+        "surface-light": "#ffffff",
+        "surface-dark": "#1e293b",
+        "text-main": "#0f172a",
+        "text-secondary": "#64748b",
+      },
+      fontFamily: {
+        display: ["Spline Sans", "sans-serif"],
       },
       borderRadius: {
+        DEFAULT: "0.5rem",
+        lg: "0.75rem",
         xl: "1rem",
-        "2xl": "1.5rem",
-      },
-      boxShadow: {
-        card: "0 4px 16px rgba(0,0,0,0.12)",
+        full: "9999px",
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/container-queries")],
 };

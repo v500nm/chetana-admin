@@ -1,25 +1,28 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Sidebar from "./components/Sidebar";
+import { AuthProvider } from "./context/AuthContext";
 
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <AuthProvider>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
+              <div className="flex">
                 <Dashboard />
-              </ProtectedRoute>
+              </div>
             }
           />
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
+
+export default App;
