@@ -1,21 +1,28 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Sidebar from "./components/Sidebar";
 import { AuthProvider } from "./context/AuthContext";
 
-import Login from "./pages/Login";
-import AuthShell from "./context/AuthShell";
-
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <AuthProvider>
+      <BrowserRouter>
         <Routes>
-          {/* Public */}
           <Route path="/" element={<Login />} />
 
-          {/* Admin */}
-          <Route path="/*" element={<AuthShell />} />
+          <Route
+            path="/dashboard"
+            element={
+              <div className="flex">
+                <Dashboard />
+              </div>
+            }
+          />
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
+
+export default App;

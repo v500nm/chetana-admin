@@ -1,13 +1,24 @@
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null);
 
+// STATIC ADMIN CREDENTIALS
+const ADMIN_EMAIL = "admin@chetanacollege.edu";
+const ADMIN_PASSWORD = "admin123";
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
 
-  const login = (email) => {
-    // Replace with real API later
-    setUser({ email });
+  const login = (email, password) => {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      setUser({ email });
+      setError("");
+      return true; // success
+    } else {
+      setError("Invalid email or password");
+      return false; // failure
+    }
   };
 
   const logout = () => {
@@ -15,7 +26,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, error }}>
       {children}
     </AuthContext.Provider>
   );

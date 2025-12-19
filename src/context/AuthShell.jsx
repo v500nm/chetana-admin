@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import Breadcrumb from "../components/Breadcrumb";
 
-import AdminDashboard from "../pages/AdminDashboard";
+import Dashboard from "../pages/Dashboard";
 import ContactQueries from "../pages/ContactQueries";
 
 /* -------- Route → Breadcrumb Map (single source of truth) -------- */
@@ -42,7 +42,7 @@ const AuthShell = () => {
         {/* Routed Pages */}
         <main className="flex-1 overflow-y-auto px-6 py-8">
           <Routes>
-            <Route path="/dashboard" element={<AdminDashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/contact-queries" element={<ContactQueries />} />
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
