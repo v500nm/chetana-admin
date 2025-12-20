@@ -1,0 +1,46 @@
+[
+  {
+    "label": "Dashboard",
+    "icon": "dashboard",
+    "path": "/dashboard"
+  },
+  {
+    "label": "Pages",
+    "icon": "description",
+    "key": "pages",
+    "children": [
+      {
+        "label": "Home",
+        "key": "home",
+        "children": [
+          { "label": "About Chetana", "path": "/home/about-chetana" },
+          { "label": "Academics", "path": "/home/academics" },
+          { "label": "Our Campus", "path": "/home/our-campus" },
+          { "label": "Testimonials", "path": "/home/testimonials" }
+        ]
+      },
+      { "label": "About", "path": "/pages/about" },
+      { "label": "Courses", "path": "/pages/courses" },
+      { "label": "Examination", "path": "/pages/examination" },
+      { "label": "Admission", "path": "/pages/admission" },
+      { "label": "Placement", "path": "/pages/placement" },
+      { "label": "Research", "path": "/pages/research" },
+      { "label": "Student Corner", "path": "/pages/student-corner" }
+    ]
+  },
+  {
+    "label": "Notices",
+    "icon": "campaign",
+    "path": "/notices"
+  },
+  {
+    "label": "Inbox",
+    "icon": "inbox",
+    "path": "/inbox"
+  },
+  {
+    "label": "Settings",
+    "icon": "settings",
+    "key": "/settings"
+  }
+]
