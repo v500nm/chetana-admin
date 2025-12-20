@@ -2,29 +2,24 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 
-const AdminLayout = ({ children, breadcrumbItems }) => {
+const AdminLayout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="h-screen w-screen flex bg-gray-100 dark:bg-gray-900">
 
       {/* SIDEBAR */}
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      {/* MAIN CONTENT */}
-      <div className="flex-1 flex flex-col">
+      {/* RIGHT SECTION */}
+      <div className="flex flex-col flex-1 min-w-0">
 
         {/* HEADER */}
-        <Header
-          setIsOpen={setIsOpen}
-          breadcrumbItems={breadcrumbItems}
-        />
+        <Header setIsOpen={setIsOpen} />
 
-        {/* PAGE CONTENT */}
-        <main className="flex-1 p-4 sm:p-6">
-          <div className="max-w-7xl mx-auto w-full">
-            {children}
-          </div>
+        {/* CONTENT */}
+        <main className="flex-1 w-full overflow-y-auto p-4 sm:p-6">
+          {children}
         </main>
 
       </div>
