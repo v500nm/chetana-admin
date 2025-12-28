@@ -1,0 +1,25 @@
+{
+  "notices": [
+    {
+      "id": 1,
+      "title": "Semester Exam Schedule Released",
+      "category": "Examination",
+      "date": "2024-01-10",
+      "status": "Published"
+    },
+    {
+      "id": 2,
+      "title": "College Reopens After Holidays",
+      "category": "General",
+      "date": "2024-01-05",
+      "status": "Draft"
+    },
+    {
+      "id": 3,
+      "title": "NAAC Visit Announcement",
+      "category": "NAAC",
+      "date": "2024-01-02",
+      "status": "Published"
+    }
+  ]
+}

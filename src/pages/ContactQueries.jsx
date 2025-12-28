@@ -1,152 +1,145 @@
 import React, { useEffect, useState } from "react";
+import data from "../data/contactQueries.json";
+
+const PAGE_SIZE = 5;
 
 const ContactQueries = () => {
-  const [loading, setLoading] = useState(true);
+  const [queries, setQueries] = useState([]);
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("All");
+  const [page, setPage] = useState(1);
+  const [activeQuery, setActiveQuery] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1600);
-    return () => clearTimeout(timer);
+    setQueries(data.queries);
   }, []);
 
-  return (
-    <div className="max-w-[1200px] mx-auto space-y-8">
+  const filtered = queries.filter((q) => {
+    const matchSearch =
+      q.name.toLowerCase().includes(search.toLowerCase()) ||
+      q.subject.toLowerCase().includes(search.toLowerCase());
+    const matchStatus = status === "All" || q.status === status;
+    return matchSearch && matchStatus;
+  });
 
-      {/* ================= PAGE HEADER ================= */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
+
+  const updateStatus = (id, newStatus) => {
+    setQueries((prev) =>
+      prev.map((q) =>
+        q.id === id ? { ...q, status: newStatus } : q
+      )
+    );
+  };
+
+  return (
+    <div className="w-full space-y-6 text-gray-900 dark:text-gray-100">
+
+      {/* HEADER */}
+      <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold">Contact Queries</h2>
-          <p className="text-text-secondary max-w-2xl mt-1">
-            View, manage and respond to messages received via the website.
+          <h2 className="text-2xl font-bold">Contact Queries</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Manage website contact form submissions
           </p>
         </div>
-
-        <div className="flex gap-3">
-          <button className="h-10 px-4 rounded-lg border bg-white shadow-sm">
-            Export
-          </button>
-          <button className="h-10 px-4 rounded-lg bg-primary text-white font-semibold">
-            Compose
-          </button>
-        </div>
       </div>
 
-      {/* ================= STATS ================= */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {loading
-          ? Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />)
-          : (
-            <>
-              <StatCard title="Unread Messages" value="12" icon="mark_email_unread" />
-              <StatCard title="Total Queries" value="1,248" icon="inbox" />
-              <StatCard title="Response Rate" value="98%" icon="check_circle" />
-              <StatCard title="Avg. Response Time" value="4h 20m" icon="timer" />
-            </>
-          )}
+      {/* FILTER */}
+      <div className="flex gap-4">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search..."
+          className="
+            h-10 px-4 rounded-lg border w-full
+            bg-white dark:bg-gray-800
+            border-gray-200 dark:border-gray-700
+          "
+        />
+
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          className="
+            h-10 px-3 rounded-lg border
+            bg-white dark:bg-gray-800
+            border-gray-200 dark:border-gray-700
+          "
+        >
+          <option>All</option>
+          <option>New</option>
+          <option>Seen</option>
+          <option>Replied</option>
+        </select>
       </div>
 
-      {/* ================= TABLE ================= */}
-      <div className="rounded-xl bg-surface-light dark:bg-surface-dark border shadow-sm overflow-hidden">
-        {loading ? <TableSkeleton /> : <ContactTable />}
+      {/* TABLE */}
+      <div className="
+        bg-white dark:bg-gray-800
+        border border-gray-200 dark:border-gray-700
+        rounded-xl overflow-hidden
+      ">
+        <table className="min-w-full text-sm">
+          <thead className="bg-gray-50 dark:bg-gray-700 border-b">
+            <tr>
+              <th className="px-6 py-3 text-left">Sender</th>
+              <th className="px-6 py-3 text-left">Subject</th>
+              <th className="px-6 py-3 text-left">Date</th>
+              <th className="px-6 py-3 text-left">Status</th>
+              <th className="px-6 py-3 text-right">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {paginated.map((q) => (
+              <tr
+                key={q.id}
+                className="border-b hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                <td className="px-6 py-4 font-medium">{q.name}</td>
+                <td className="px-6 py-4 text-gray-500 dark:text-gray-400">
+                  {q.subject}
+                </td>
+                <td className="px-6 py-4">{q.date}</td>
+                <td className="px-6 py-4">
+                  <StatusBadge status={q.status} />
+                </td>
+                <td className="px-6 py-4 text-right">
+                  <button
+                    onClick={() => setActiveQuery(q)}
+                    className="text-green-600 text-xs"
+                  >
+                    Reply
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
     </div>
   );
 };
 
 export default ContactQueries;
 
-/* ================= COMPONENTS ================= */
+/* STATUS BADGE */
+const StatusBadge = ({ status }) => {
+  const styles = {
+    New: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    Seen: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
+    Replied: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+  };
 
-const StatCard = ({ title, value, icon }) => (
-  <div className="rounded-xl p-5 border bg-surface-light dark:bg-surface-dark shadow-sm">
-    <div className="flex justify-between">
-      <p className="text-sm text-text-secondary">{title}</p>
-      <span className="material-symbols-outlined text-primary">{icon}</span>
-    </div>
-    <h3 className="text-2xl font-bold mt-3">{value}</h3>
-  </div>
-);
-
-const StatCardSkeleton = () => (
-  <div className="rounded-xl p-5 border bg-surface-light dark:bg-surface-dark shadow-sm">
-    <Skeleton className="h-4 w-32 mb-4" />
-    <Skeleton className="h-8 w-20" />
-  </div>
-);
-
-/* ================= TABLE ================= */
-
-const ContactTable = () => (
-  <>
-    <div className="p-4 border-b flex flex-col sm:flex-row gap-4 justify-between">
-      <input
-        className="w-full sm:max-w-md rounded-lg bg-slate-100 px-4 py-2"
-        placeholder="Search queries..."
-      />
-      <select className="h-10 px-3 rounded-lg border bg-white">
-        <option>Status: All</option>
-        <option>New</option>
-        <option>Replied</option>
-        <option>Archived</option>
-      </select>
-    </div>
-
-    <div className="overflow-x-auto">
-      <table className="min-w-full text-sm">
-        <thead className="bg-slate-50 border-b">
-          <tr>
-            <th className="px-6 py-4 text-left">Sender</th>
-            <th className="px-6 py-4 text-left">Subject</th>
-            <th className="px-6 py-4 text-left">Date</th>
-            <th className="px-6 py-4 text-left">Status</th>
-            <th className="px-6 py-4 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <TableRow name="John Doe" subject="Admission Inquiry" status="New" />
-          <TableRow name="Anita Sharma" subject="Syllabus Update" status="Replied" />
-          <TableRow name="Rajesh Kumar" subject="Library Access" status="Seen" />
-        </tbody>
-      </table>
-    </div>
-  </>
-);
-
-const TableRow = ({ name, subject, status }) => (
-  <tr className="border-b hover:bg-slate-50">
-    <td className="px-6 py-4 font-medium">{name}</td>
-    <td className="px-6 py-4 text-text-secondary">{subject}</td>
-    <td className="px-6 py-4 text-text-secondary">Oct 24, 2023</td>
-    <td className="px-6 py-4">
-      <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
-        {status}
-      </span>
-    </td>
-    <td className="px-6 py-4 text-right">•••</td>
-  </tr>
-);
-
-/* ================= SKELETON ================= */
-
-const TableSkeleton = () => (
-  <>
-    <div className="p-4 border-b flex gap-4">
-      <Skeleton className="h-10 w-64" />
-      <Skeleton className="h-10 w-40" />
-    </div>
-
-    <div className="divide-y">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="grid grid-cols-5 gap-4 px-6 py-4">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 col-span-2" />
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-4 w-20" />
-        </div>
-      ))}
-    </div>
-  </>
-);
-
-const Skeleton = ({ className }) => (
-  <div className={`animate-pulse bg-slate-200 dark:bg-slate-700 rounded ${className}`} />
-);
+  return (
+    <span className={`px-2 py-1 rounded-full text-xs ${styles[status]}`}>
+      {status}
+    </span>
+  );
+};

@@ -1,0 +1,76 @@
+{
+  "stats": [
+    { "title": "Unread Messages", "value": 18, "icon": "mark_email_unread" },
+    { "title": "Total Queries", "value": 50, "icon": "inbox" },
+    { "title": "Response Rate", "value": "96%", "icon": "check_circle" },
+    { "title": "Avg. Response Time", "value": "3h 45m", "icon": "timer" }
+  ],
+
+  "queries": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "subject": "Admission Inquiry",
+      "message": "I want details about BBA admission.",
+      "date": "2023-10-24",
+      "status": "New"
+    },
+    {
+      "id": 2,
+      "name": "Anita Sharma",
+      "email": "anita@gmail.com",
+      "subject": "Syllabus Update",
+      "message": "Is the syllabus updated for FY?",
+      "date": "2023-10-22",
+      "status": "Replied"
+    },
+    {
+      "id": 3,
+      "name": "Rajesh Kumar",
+      "email": "rajesh@gmail.com",
+      "subject": "Library Access",
+      "message": "How to access the digital library?",
+      "date": "2023-10-20",
+      "status": "Seen"
+    },
+    {
+      "id": 4,
+      "name": "Sneha Patil",
+      "email": "sneha@gmail.com",
+      "subject": "Exam Timetable",
+      "message": "When will the exam timetable be released?",
+      "date": "2023-10-19",
+      "status": "New"
+    },
+    {
+      "id": 5,
+      "name": "Amit Verma",
+      "email": "amit@gmail.com",
+      "subject": "Fee Structure",
+      "message": "Please share MBA fee structure.",
+      "date": "2023-10-18",
+      "status": "Seen"
+    },
+
+    {
+      "id": 6,
+      "name": "Pooja Nair",
+      "email": "pooja@gmail.com",
+      "subject": "Hostel Facility",
+      "message": "Is hostel facility available?",
+      "date": "2023-10-17",
+      "status": "Replied"
+    },
+
+    {
+      "id": 7,
+      "name": "Rohit Singh",
+      "email": "rohit@gmail.com",
+      "subject": "Placement Records",
+      "message": "What is the placement percentage?",
+      "date": "2023-10-16",
+      "status": "New"
+    }
+  ] 
+}
