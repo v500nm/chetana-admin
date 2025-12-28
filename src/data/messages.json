@@ -1,0 +1,34 @@
+{
+  "inbox": [
+    {
+      "id": 1,
+      "from": "john@gmail.com",
+      "name": "John Doe",
+      "subject": "Admission Inquiry",
+      "message": "Please share admission details for BBA.",
+      "date": "2023-10-25",
+      "status": "Unread"
+    },
+    {
+      "id": 2,
+      "from": "anita@gmail.com",
+      "name": "Anita Sharma",
+      "subject": "Syllabus Update",
+      "message": "Is FY syllabus updated?",
+      "date": "2023-10-23",
+      "status": "Read"
+    }
+  ],
+
+  "outbox": [
+    {
+      "id": 101,
+      "to": "rajesh@gmail.com",
+      "name": "Rajesh Kumar",
+      "subject": "Library Access Details",
+      "message": "You can access digital library using student login.",
+      "date": "2023-10-22",
+      "status": "Sent"
+    }
+  ]
+}

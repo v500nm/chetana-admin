@@ -1,0 +1,23 @@
+{
+  "general": {
+    "collegeName": "Chetana's College",
+    "tagline": "Empowering Education",
+    "email": "admin@chetana.edu",
+    "phone": "9999999999",
+    "address": "Mumbai, Maharashtra",
+    "website": "https://chetana.edu"
+  },
+  "appearance": {
+    "theme": "light",
+    "primaryColor": "blue",
+    "sidebarCollapsed": false
+  },
+  "notifications": {
+    "email": true,
+    "dashboard": true,
+    "contactQueries": true
+  },
+  "security": {
+    "autoLogout": 30
+  }
+}

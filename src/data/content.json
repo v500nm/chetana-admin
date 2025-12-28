@@ -1,0 +1,25 @@
+{
+  "pages": [
+    {
+      "id": 1,
+      "title": "About Chetana",
+      "slug": "/about",
+      "lastUpdated": "2024-01-08",
+      "status": "Published"
+    },
+    {
+      "id": 2,
+      "title": "Academics",
+      "slug": "/academics",
+      "lastUpdated": "2024-01-06",
+      "status": "Draft"
+    },
+    {
+      "id": 3,
+      "title": "Admissions",
+      "slug": "/admissions",
+      "lastUpdated": "2024-01-04",
+      "status": "Published"
+    }
+  ]
+}
